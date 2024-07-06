@@ -27,91 +27,64 @@ function CommonForm({ formSchema, control, onSubmit, submitButtonText }) {
       >
         {formSchema.map((item) => (
           <Fragment key={item.name}>
-            {item.type === 'password' ? (
-              <Col span={24} style={{ marginBottom: 16 }}>
-                <Controller
-                  name={item.name}
-                  control={control}
-                  render={({ field }) => (
-                    <Input.Password
-                      {...field}
-                      placeholder={"password"}
-                      type={"password"}
-                      style={{ width: '100%' }}
-                      iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-                    />
-                  )}
-                />
-              </Col>
-            ) : item.type === 'select' ? (
-              <Col span={24} style={{ marginBottom: 16 }}>
-                <Controller
-                  name={item.name}
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      showSearch
-                      style={{ width: '100%' }}
-                      placeholder={item.placeholder}
-                      optionFilterProp="label"
-                      filterSort={(optionA, optionB) =>
-                        (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
-                      }
-                      options={item.options}
-                    />
-                  )}
-                />
-              </Col>
-            ) : item.type === 'checkBox' ? (
-              <Col span={24} style={{ marginBottom: 16 }}>
-                <label style={{ marginRight: 10 }} >{item.header}</label>
-                <Controller
-                  name={item.name}
-                  control={control}
-                  render={({ field }) => (
-                    <Radio.Group
-                      {...field}
-                      options={item.options}
-                    />
-                  )}
-                />
-              </Col>
-            ) : item.type === 'image' ? (
-              <Col span={24} style={{ marginBottom: 16 }}>
-                <label style={{ marginRight: 10 }} >{item.header}</label>
-                <Controller
-                  name={item.name}
-                  control={control}
-                  render={({ field }) => (
-                    <Upload
-                      {...field}
-                      multiple
-                      listType="picture-card"
-                    >
-                      {item.condition() && '+ Upload'}
-                    </Upload>
-                  )}
-                />
-              </Col>
-            ) : (
-              <Col span={24} style={{ marginBottom: 16 }}>
-                <Controller
-                  name={item.name}
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      {...field}
-                      placeholder={item.placeholder}
-                      type={item.type}
-                      style={{ width: '100%' }}
-                      iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-                    />
-                  )}
-                />
-              </Col>
-            )
-            }
+            <Col span={24} style={{ marginBottom: 16 }}>
+              <Controller
+                name={item.name}
+                control={control}
+                render={({ field }) => (
+                  <>
+                    {item.type === 'password' ? (
+                      <Input.Password
+                        {...field}
+                        placeholder={item.placeholder}
+                        type={item.type}
+                        style={{ width: '100%' }}
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                      />
+                    ) : item.type === 'select' ? (
+                      <Select
+                        {...field}
+                        showSearch
+                        style={{ width: '100%' }}
+                        placeholder={item.placeholder}
+                        optionFilterProp="label"
+                        options={item.options}
+                      />
+                    ) : item.type === 'checkBox' ? (
+                      <>
+                        <label style={{ marginRight: 10 }} >{item.header}</label>
+                        <Radio.Group
+                          {...field}
+                          options={item.options}
+                        />
+                      </>
+                    ) : item.type === 'image' ? (
+                      <>
+                        <label style={{ marginRight: 10 }} >{item.header}</label>
+                        <Upload
+                          {...field}
+                          multiple
+                          listType="picture-card"
+                        >
+                          {item.condition() && '+ Upload'}
+                        </Upload>
+                      </>
+                    ) : (
+                      <Input
+                        {...field}
+                        placeholder={item.placeholder}
+                        type={item.type}
+                        style={{ width: '100%' }}
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                      />
+                    )}
+                    {/* {errors && (
+                      <span style={{ color: 'red' }}>{errors}</span>
+                    )} */}
+                  </>
+                )}
+              />
+            </Col>
           </Fragment>
         ))}
         <Col span={24}>
