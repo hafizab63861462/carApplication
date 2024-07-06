@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import CommonForm from "@/app/components/commonForm"
-import { loginFormSchema } from "@/app/components/FormSchema/loginFoormSchema"
+import { loginFormSchema } from "@/app/components/FormSchema/loginFormSchema"
 import axios from 'axios';
 import { useRouter } from 'next/navigation'
 
