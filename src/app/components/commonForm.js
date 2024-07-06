@@ -1,6 +1,7 @@
 import { Controller } from 'react-hook-form';
 import { Row, Col, Input, Button } from 'antd';
 import { Fragment } from 'react';
+import { EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
 
 function CommonForm({ formSchema, control, onSubmit, submitButtonText }) {
   return (
@@ -26,20 +27,40 @@ function CommonForm({ formSchema, control, onSubmit, submitButtonText }) {
       >
         {formSchema.map((item) => (
           <Fragment key={item.name}>
-            <Col span={24} style={{ marginBottom: 16 }}>
-              <Controller
-                name={item.name}
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    {...field}
-                    placeholder={item.placeholder}
-                    type={item.type}
-                    style={{ width: '100%' }}
-                  />
-                )}
-              />
-            </Col>
+            {item.type === 'password' ? (
+              <Col span={24} style={{ marginBottom: 16 }}>
+                <Controller
+                  name={item.name}
+                  control={control}
+                  render={({ field }) => (
+                    <Input.Password
+                      {...field}
+                      placeholder={"password"}
+                      type={"password"}
+                      style={{ width: '100%' }}
+                      iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    />
+                  )}
+                />
+              </Col>
+            ) : (
+              <Col span={24} style={{ marginBottom: 16 }}>
+                <Controller
+                  name={item.name}
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      placeholder={item.placeholder}
+                      type={item.type}
+                      style={{ width: '100%' }}
+                      iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    />
+                  )}
+                />
+              </Col>
+            )
+            }
           </Fragment>
         ))}
         <Col span={24}>
