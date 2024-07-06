@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form';
-import { Row, Col, Input, Button, Select, Radio } from 'antd';
+import { Row, Col, Input, Button, Select, Radio, Upload } from 'antd';
 import { Fragment } from 'react';
 import { EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
 
@@ -74,6 +74,23 @@ function CommonForm({ formSchema, control, onSubmit, submitButtonText }) {
                       {...field}
                       options={item.options}
                     />
+                  )}
+                />
+              </Col>
+            ) : item.type === 'image' ? (
+              <Col span={24} style={{ marginBottom: 16 }}>
+                <label style={{ marginRight: 10 }} >{item.header}</label>
+                <Controller
+                  name={item.name}
+                  control={control}
+                  render={({ field }) => (
+                    <Upload
+                      {...field}
+                      multiple
+                      listType="picture-card"
+                    >
+                      {item.condition() && '+ Upload'}
+                    </Upload>
                   )}
                 />
               </Col>
