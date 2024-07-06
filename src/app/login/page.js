@@ -39,6 +39,7 @@ const LoginPage = () => {
         control={control}
         onSubmit={onSubmit}
         submitButtonText={"Login"}
+        isValid={true}
       />
     </>
   );
