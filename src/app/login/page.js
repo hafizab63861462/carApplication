@@ -18,15 +18,15 @@ const LoginPage = () => {
 
       const response = await axios.post(`${apiUrl}/login`, getValues());
 
-      messageApi.info(response.data.message);
+      messageApi.info(response?.data?.message);
 
       const token = response.data.token;
       localStorage.setItem('token', token);
       router.push('/dashboard')
 
     } catch (error) {
-      messageApi.info(error.message);
-      messageApi.info(error.response.data.message);
+      messageApi.info(error?.message);
+      messageApi.info(error?.response?.data?.message);
       console.error(error);
     }
   };
