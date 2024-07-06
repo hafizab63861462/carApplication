@@ -3,7 +3,7 @@ import { Row, Col, Input, Button, Select, Radio, Upload } from 'antd';
 import { Fragment } from 'react';
 import { EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
 
-function CommonForm({ formSchema, control, onSubmit, submitButtonText }) {
+function CommonForm({ formSchema, control, onSubmit, submitButtonText, isValid }) {
   return (
     <div
       style={{
@@ -31,7 +31,7 @@ function CommonForm({ formSchema, control, onSubmit, submitButtonText }) {
               <Controller
                 name={item.name}
                 control={control}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <>
                     {item.type === 'password' ? (
                       <Input.Password
@@ -78,9 +78,9 @@ function CommonForm({ formSchema, control, onSubmit, submitButtonText }) {
                         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                       />
                     )}
-                    {/* {errors && (
-                      <span style={{ color: 'red' }}>{errors}</span>
-                    )} */}
+                    {fieldState.error && (
+                      <span style={{ color: 'red' }}>{fieldState.error.message}</span>
+                    )}
                   </>
                 )}
               />
@@ -92,6 +92,7 @@ function CommonForm({ formSchema, control, onSubmit, submitButtonText }) {
             type="primary"
             onClick={onSubmit}
             style={{ width: '100%' }}
+            disabled={!isValid}
           >
             {submitButtonText}
           </Button>
