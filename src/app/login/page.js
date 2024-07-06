@@ -12,11 +12,9 @@ const LoginPage = () => {
 
   const onSubmit = async () => {
     try {
-      const apiUrl = process.env.CAR_APPLICATION_LOCAL_API_URL;
+      const apiUrl = process.env.NEXT_PUBLIC_CAR_APPLICATION_LOCAL_API_URL;
 
-      console.log('apiUrl', apiUrl);
-      const response = await axios.post(`http://localhost:5000/api/login`, getValues());
-      // const response = await axios.post(`${apiUrl}/login`, getValues());
+      const response = await axios.post(`${apiUrl}/login`, getValues());
 
       const token = response.data.token;
       localStorage.setItem('token', token);
