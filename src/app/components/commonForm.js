@@ -63,7 +63,8 @@ function CommonForm({ formSchema, control, onSubmit, submitButtonText, isValid }
                         <label style={{ marginRight: 10 }} >{item.header}</label>
                         <Upload
                           {...field}
-                          multiple
+                          fileList={item.fileList()}
+                          onChange={item.onChange}
                           listType="picture-card"
                         >
                           {item.condition() && '+ Upload'}

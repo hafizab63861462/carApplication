@@ -8,7 +8,7 @@ import axios from 'axios';
 import { message } from 'antd';
 
 const Dashboard = () => {
-  const { control, getValues, setValue, watch, formState, reset } = useForm({
+  const { control, getValues, setValue, watch, formState, reset, trigger } = useForm({
     mode: "onChange",
     resolver: yupResolver(validationSchema)
   });
@@ -31,8 +31,8 @@ const Dashboard = () => {
       }
 
       // Append files to FormData
-      if (values?.uploadimage?.fileList) {
-        values.uploadimage.fileList.forEach(file => {
+      if (values?.uploadimage) {
+        values.uploadimage.forEach(file => {
           if (file.originFileObj) {
             formData.append('image', file.originFileObj);
           }
@@ -55,7 +55,7 @@ const Dashboard = () => {
   }
 
   const memoizedFormSchema = useMemo(() => {
-    return carFormSchema({ getValues, setValue });
+    return carFormSchema({ getValues, setValue, trigger });
   }, [carPicValue]);
 
   return (

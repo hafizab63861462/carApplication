@@ -16,11 +16,11 @@ export const validationSchema = Yup.object().shape({
     .required('Number of pictures is required'),
   uploadimage: Yup.mixed().test('fileList', 'you have only allowed to upload number of pics that you select', function (value) {
     const { number_of_pics } = this.parent;
-    return value && value.fileList && value.fileList.length > 0 && value.fileList.length <= number_of_pics;
+    return value && value.length > 0 && value.length <= number_of_pics;
   }),
 });
 
-export const carFormSchema = ({ getValues }) => {
+export const carFormSchema = ({ getValues, setValue, trigger }) => {
   return [
     {
       name: 'car_model',
@@ -55,9 +55,18 @@ export const carFormSchema = ({ getValues }) => {
     {
       name: 'uploadimage',
       type: "image",
+      fileList: () => {
+        const { uploadimage } = getValues();
+        return uploadimage ? uploadimage : []
+      },
+      onChange: ({ fileList: newFileList }) => {
+        console.log('newFileList', newFileList);
+        trigger('uploadimage');
+        setValue("uploadimage", newFileList)
+      },
       condition: () => {
         const { number_of_pics, uploadimage } = getValues();
-        return number_of_pics && (uploadimage ? uploadimage.fileList.length < parseFloat(number_of_pics) : true);
+        return number_of_pics && (uploadimage ? uploadimage.length < parseFloat(number_of_pics) : true);
       }
     },
   ];
